@@ -177,7 +177,7 @@
      <string>Найти кабинет</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="ClassNumber">
+   <widget class="QLineEdit" name="classNumber">
     <property name="geometry">
      <rect>
       <x>30</x>

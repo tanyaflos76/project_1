@@ -12,12 +12,18 @@ class Navigation(QMainWindow):
         self.ClassNumber.setVisible(False)
         self.label_2.setVisible(False)
         self.showClass.setVisible(False)
+        self.findClass.clicked.connect(self.find)
 
         self.pixmap = QPixmap('school.jpg')
         self.image = self.for_picture
         self.image.move(200, 35)
         self.image.resize(700, 500)
         self.image.setPixmap(self.pixmap)
+
+    def find(self):
+        self.ClassNumber.setVisible(True)
+        self.label_2.setVisible(True)
+        self.showClass.setVisible(True)
 
 
 if __name__ == '__main__':

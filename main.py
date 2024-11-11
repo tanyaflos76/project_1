@@ -2,8 +2,13 @@ import sys
 from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtGui import QPixmap
+from PyQt6.QtCore import pyqtSignal, QObject
 
 from dialog import MyDialog
+
+
+class Communicate(QMainWindow):
+    sendVarToDialog = pyqtSignal()
 
 
 class Navigation(QMainWindow):
@@ -16,6 +21,7 @@ class Navigation(QMainWindow):
         self.findClass.clicked.connect(self.find)
         self.showClass.clicked.connect(self.show_number)
         self.showPicture.clicked.connect(self.show_plan)
+        self.c = Communicate()
 
         self.pixmap = QPixmap('school.jpg')
         self.image = self.for_picture
@@ -25,6 +31,8 @@ class Navigation(QMainWindow):
 
     def show_plan(self):
         self.dialog = MyDialog()
+        self.c.sendVarToDialog.connect(self.dialog.getVarToDialog)
+        self.c.sendVarToDialog.emit()
         self.dialog.show()
 
     def find(self):

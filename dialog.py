@@ -9,6 +9,9 @@ class MyDialog(QtWidgets.QDialog):
         super().__init__()
         uic.loadUi('dialog_form.ui', self)
 
+    def getVarToDialog(self):
+        self.label.setText('fvnejvjerbn')
+
 
 if __name__ == '__main__':
     if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):

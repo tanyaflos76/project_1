@@ -1,4 +1,5 @@
 import sys
+import sqlite3
 from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtGui import QPixmap
@@ -7,8 +8,8 @@ from PyQt6.QtCore import pyqtSignal, QObject
 from dialog import MyDialog
 
 
-class Communicate(QMainWindow):
-    sendVarToDialog = pyqtSignal()
+class Communicate(QObject):
+    sendVarToDialog = pyqtSignal(object, object)
 
 
 class Navigation(QMainWindow):
@@ -23,16 +24,39 @@ class Navigation(QMainWindow):
         self.showPicture.clicked.connect(self.show_plan)
         self.c = Communicate()
 
+        # Нажажие радиокнопок
+        self.floors.buttonClicked.connect(self.radio_buttons_click)
+
+        # Отображение исходной картинки
         self.pixmap = QPixmap('school.jpg')
         self.image = self.for_picture
         self.image.move(200, 35)
         self.image.resize(700, 500)
         self.image.setPixmap(self.pixmap)
 
+    # Сохраняем номер этажа, выбранного пользователем
+    def radio_buttons_click(self, button):
+        floor = button.text()
+        number_floor = int(floor[0])
+        self.number_floor = number_floor
+
+    # Найдем имя файла с картинкой нужного этажа
+    def find_file_name(self, name):
+        con = sqlite3.connect('info_about_classes.sqlite')
+        cur = con.cursor()
+        query = f'''select file_name from floors where id_floor = {name}'''
+        res = cur.execute(query).fetchone()
+        con.close()
+        return res
+
     def show_plan(self):
         self.dialog = MyDialog()
+
+        file_name = str(self.find_file_name(self.number_floor))[2:-3]
+
+        # Коммуникация с диалоговым окном
         self.c.sendVarToDialog.connect(self.dialog.getVarToDialog)
-        self.c.sendVarToDialog.emit()
+        self.c.sendVarToDialog.emit(file_name, self.number_floor)
         self.dialog.show()
 
     def find(self):

@@ -6,10 +6,12 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import pyqtSignal, QObject
 
 from dialog import MyDialog
+from dialog_2 import MyDialog_2
 
 
 class Communicate(QObject):
     sendVarToDialog = pyqtSignal(object, object)
+    sendVarToDialog_2 = pyqtSignal(object, object)
 
 
 class Navigation(QMainWindow):
@@ -22,6 +24,7 @@ class Navigation(QMainWindow):
         self.findClass.clicked.connect(self.find)
         self.showClass.clicked.connect(self.show_number)
         self.showPicture.clicked.connect(self.show_plan)
+        self.showClass.clicked.connect(self.show_the_class)
         self.c = Communicate()
 
         # Нажажие радиокнопок
@@ -59,13 +62,21 @@ class Navigation(QMainWindow):
         self.c.sendVarToDialog.emit(file_name, self.number_floor)
         self.dialog.show()
 
+    def show_the_class(self):
+        self.dialog_2 = MyDialog_2()
+        # Коммуникация с диалоговым окном вторым
+        # self.c.sendVarToDialog_2.connect(self.dialog.getVarToDialog_2)
+        # self.c.sendVarToDialog_2.emit()
+        self.dialog_2.show()
+
     def find(self):
         self.classNumber.setVisible(True)
         self.label_2.setVisible(True)
         self.showClass.setVisible(True)
 
     def show_number(self):
-        number = int(self.classNumber.text())
+        # number = int(self.classNumber.text())
+        ...
 
 
 def except_hook(cls, exception, traceback):

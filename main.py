@@ -11,7 +11,7 @@ from dialog_2 import MyDialog_2
 
 class Communicate(QObject):
     sendVarToDialog = pyqtSignal(object, object)
-    sendVarToDialog_2 = pyqtSignal(object, object)
+    sendVarToDialog_2 = pyqtSignal(object, object, object, object, object)
 
 
 class Navigation(QMainWindow):
@@ -22,7 +22,6 @@ class Navigation(QMainWindow):
         self.label_2.setVisible(False)
         self.showClass.setVisible(False)
         self.findClass.clicked.connect(self.find)
-        self.showClass.clicked.connect(self.show_number)
         self.showPicture.clicked.connect(self.show_plan)
         self.showClass.clicked.connect(self.show_the_class)
         self.c = Communicate()
@@ -65,8 +64,11 @@ class Navigation(QMainWindow):
     def show_the_class(self):
         self.dialog_2 = MyDialog_2()
         # Коммуникация с диалоговым окном вторым
-        # self.c.sendVarToDialog_2.connect(self.dialog.getVarToDialog_2)
+        # self.c.sendVarToDialog_2.connect(self.dialog_2.getVarToDialog_2)
         # self.c.sendVarToDialog_2.emit()
+        number = self.classNumber.text()
+        teacher = self.find_teacher(number)
+        print(number, teacher)
         self.dialog_2.show()
 
     def find(self):
@@ -74,8 +76,23 @@ class Navigation(QMainWindow):
         self.label_2.setVisible(True)
         self.showClass.setVisible(True)
 
-    def show_number(self):
-        # number = int(self.classNumber.text())
+    def find_teacher(self, number):
+        result = []
+        con = sqlite3.connect('info_about_classes.sqlite')
+        cur = con.cursor()
+        query = f'''select name from teachers where id_teacher =
+(select id_teacher from classrooms where num_class = '{number}')'''
+        res = cur.execute(query).fetchall()
+        con.close()
+        for i in res:
+            teacher = str(i)[2:-3]
+            result.append(teacher)
+        return result
+
+    def find_subject(self):
+        ...
+
+    def find_classes(self):
         ...
 
 

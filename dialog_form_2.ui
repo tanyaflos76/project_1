@@ -85,17 +85,17 @@
     <string>В каких классах преподает:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="forPicture">
+  <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
      <x>330</x>
-     <y>30</y>
+     <y>40</y>
      <width>561</width>
-     <height>491</height>
+     <height>481</height>
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string>TextLabel</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
@@ -116,7 +116,7 @@
     <string>Этаж:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="numnerClass">
+  <widget class="QLabel" name="numberClass">
    <property name="geometry">
     <rect>
      <x>140</x>

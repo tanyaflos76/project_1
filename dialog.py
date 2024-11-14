@@ -16,12 +16,13 @@ class MyDialog(QtWidgets.QDialog):
         # Отображаем саму картинку
         self.pixmap = QPixmap(filename)
         self.image = self.label
-        if filename == 'floors_picture/1_floor' or 'floors_picture/2_floor':
+
+        if filename == 'floors_picture/1_floor.png' or filename == 'floors_picture/2_floor.png':
             self.image.move(162, 40)
             self.image.resize(1060, 670)
         else:
-            self.image.move(0, 0)
-            self.image.resize(1000, 670)
+            self.image.move(40, 40)
+            self.image.resize(1060, 670)
         self.image.setPixmap(self.pixmap)
 
 

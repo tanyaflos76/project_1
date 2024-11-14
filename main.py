@@ -51,6 +51,16 @@ class Navigation(QMainWindow):
         con.close()
         return res
 
+    def data_is_correct(self):
+        data = self.classNumber.text()
+        con = sqlite3.connect('info_about_classes.sqlite')
+        cur = con.cursor()
+        query = f'''select id_teacher from classrooms where num_class = "{data}"'''
+        res = cur.execute(query).fetchall()
+        con.close()
+        if not res:
+            return False
+
     def show_plan(self):
         self.dialog = MyDialog()
 
@@ -63,16 +73,21 @@ class Navigation(QMainWindow):
 
     def show_the_class(self):
         self.dialog_2 = MyDialog_2()
-        # Поиск нужной информации для выбранного кабинета
-        number = self.classNumber.text()
-        teacher = self.find_teacher(number)
-        subject = [str(self.find_subject(i))[2:-2] for i in teacher]
-        number_floor = self.find_num_floor(number)
 
-        # Коммуникация с диалоговым окном вторым
-        self.c.sendVarToDialog_2.connect(self.dialog_2.getVarToDialog_2)
-        self.c.sendVarToDialog_2.emit(number, number_floor, teacher, subject)
-        self.dialog_2.show()
+        if self.data_is_correct():
+            # Поиск нужной информации для выбранного кабинета
+            number = self.classNumber.text()
+            teacher = self.find_teacher(number)
+            subject = [str(self.find_subject(i))[2:-2] for i in teacher]
+            number_floor = self.find_num_floor(number)
+
+            # Коммуникация с диалоговым окном вторым
+            self.c.sendVarToDialog_2.connect(self.dialog_2.getVarToDialog_2)
+            self.c.sendVarToDialog_2.emit(number, number_floor, teacher, subject)
+            self.dialog_2.show()
+        else:
+            self.statusBar().showMessage('Кабинет не найден.')
+            self.classNumber.setText("")
 
     def find(self):
         self.classNumber.setVisible(True)

@@ -68,7 +68,9 @@ class Navigation(QMainWindow):
         # self.c.sendVarToDialog_2.emit()
         number = self.classNumber.text()
         teacher = self.find_teacher(number)
-        print(number, teacher)
+        subject = [self.find_subject(i) for i in teacher]
+        classes = [self.find_classes(i) for i in teacher]
+        print(number, teacher, subject, classes)
         self.dialog_2.show()
 
     def find(self):
@@ -89,11 +91,29 @@ class Navigation(QMainWindow):
             result.append(teacher)
         return result
 
-    def find_subject(self):
-        ...
+    def find_subject(self, teacher):
+        result = []
+        con = sqlite3.connect('info_about_classes.sqlite')
+        cur = con.cursor()
+        query = f'''select subject from teachers where name = "{teacher}"'''
+        res = cur.execute(query).fetchall()
+        con.close()
+        for i in res:
+            subject = str(i)[2:-3]
+            result.append(subject)
+        return result
 
-    def find_classes(self):
-        ...
+    def find_classes(self, teacher):
+        result = []
+        con = sqlite3.connect('info_about_classes.sqlite')
+        cur = con.cursor()
+        query = f'''select whom_teaches from teachers where name = "{teacher}"'''
+        res = cur.execute(query).fetchall()
+        con.close()
+        for i in res:
+            classes = str(i).replace('\\n', '')[2:-3]
+            result.append(classes)
+        return result
 
 
 def except_hook(cls, exception, traceback):

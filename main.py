@@ -60,6 +60,7 @@ class Navigation(QMainWindow):
         con.close()
         if not res:
             return False
+        return True
 
     def show_plan(self):
         self.dialog = MyDialog()

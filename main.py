@@ -11,7 +11,7 @@ from dialog_2 import MyDialog_2
 
 class Communicate(QObject):
     sendVarToDialog = pyqtSignal(object, object)
-    sendVarToDialog_2 = pyqtSignal(object, object, object, object, object)
+    sendVarToDialog_2 = pyqtSignal(object, object, object, object)
 
 
 class Navigation(QMainWindow):
@@ -63,14 +63,15 @@ class Navigation(QMainWindow):
 
     def show_the_class(self):
         self.dialog_2 = MyDialog_2()
-        # Коммуникация с диалоговым окном вторым
-        # self.c.sendVarToDialog_2.connect(self.dialog_2.getVarToDialog_2)
-        # self.c.sendVarToDialog_2.emit()
+        # Поиск нужной информации для выбранного кабинета
         number = self.classNumber.text()
         teacher = self.find_teacher(number)
-        subject = [self.find_subject(i) for i in teacher]
-        classes = [self.find_classes(i) for i in teacher]
-        print(number, teacher, subject, classes)
+        subject = [str(self.find_subject(i))[2:-2] for i in teacher]
+        number_floor = self.find_num_floor(number)
+
+        # Коммуникация с диалоговым окном вторым
+        self.c.sendVarToDialog_2.connect(self.dialog_2.getVarToDialog_2)
+        self.c.sendVarToDialog_2.emit(number, number_floor, teacher, subject)
         self.dialog_2.show()
 
     def find(self):
@@ -82,7 +83,7 @@ class Navigation(QMainWindow):
         result = []
         con = sqlite3.connect('info_about_classes.sqlite')
         cur = con.cursor()
-        query = f'''select name from teachers where id_teacher =
+        query = f'''select name from teachers where id_teacher in
 (select id_teacher from classrooms where num_class = '{number}')'''
         res = cur.execute(query).fetchall()
         con.close()
@@ -103,17 +104,14 @@ class Navigation(QMainWindow):
             result.append(subject)
         return result
 
-    def find_classes(self, teacher):
-        result = []
+    def find_num_floor(self, number_class):
         con = sqlite3.connect('info_about_classes.sqlite')
         cur = con.cursor()
-        query = f'''select whom_teaches from teachers where name = "{teacher}"'''
+        query = f'''select id_floor from classrooms where num_class = "{number_class}"'''
         res = cur.execute(query).fetchall()
+        res = str(res)[2:3]
         con.close()
-        for i in res:
-            classes = str(i).replace('\\n', '')[2:-3]
-            result.append(classes)
-        return result
+        return res
 
 
 def except_hook(cls, exception, traceback):

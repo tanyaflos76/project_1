@@ -233,8 +233,32 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Для пользователей</string>
+    </property>
+    <addaction name="action"/>
+    <addaction name="action_2"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>Для админов</string>
+    </property>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_3"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action">
+   <property name="text">
+    <string>Навигация</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Замены</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

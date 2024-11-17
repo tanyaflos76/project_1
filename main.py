@@ -13,7 +13,7 @@ from dialog_4 import MyDialog_4
 
 class Communicate(QObject):
     sendVarToDialog = pyqtSignal(object, object)
-    sendVarToDialog_2 = pyqtSignal(object, object, object, object)
+    sendVarToDialog_2 = pyqtSignal(object, object, object, object, object)
     sendVarToDialog_3 = pyqtSignal()
     sendVarToDialog_4 = pyqtSignal()
     sendVarToDialog_5 = pyqtSignal()
@@ -107,10 +107,11 @@ class Navigation(QMainWindow):
             teacher = self.find_teacher(number)
             subject = [str(self.find_subject(i))[2:-2] for i in teacher]
             number_floor = self.find_num_floor(number)
+            filename = self.find_filename_class(number)
 
             # Коммуникация с диалоговым окном вторым
             self.c.sendVarToDialog_2.connect(self.dialog_2.getVarToDialog_2)
-            self.c.sendVarToDialog_2.emit(number, number_floor, teacher, subject)
+            self.c.sendVarToDialog_2.emit(number, number_floor, teacher, subject, filename)
             self.dialog_2.show()
         else:
             self.statusBar().showMessage('Кабинет не найден.')
@@ -152,6 +153,15 @@ class Navigation(QMainWindow):
         query = f'''select id_floor from classrooms where num_class = "{number_class}"'''
         res = cur.execute(query).fetchall()
         res = str(res)[2:3]
+        con.close()
+        return res
+
+    def find_filename_class(self, number_class):
+        con = sqlite3.connect('info_about_classes.sqlite')
+        cur = con.cursor()
+        query = f'''select file_name from classrooms where num_class = "{number_class}"'''
+        res = cur.execute(query).fetchall()
+        res = str(res[0])[2:-3]
         con.close()
         return res
 

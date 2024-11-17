@@ -244,6 +244,7 @@
     <property name="title">
      <string>Для админов</string>
     </property>
+    <addaction name="action_3"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_3"/>
@@ -257,6 +258,11 @@
   <action name="action_2">
    <property name="text">
     <string>Замены</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="text">
+    <string>Добавить замену</string>
    </property>
   </action>
  </widget>

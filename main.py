@@ -8,12 +8,15 @@ from PyQt6.QtCore import pyqtSignal, QObject
 from dialog import MyDialog
 from dialog_2 import MyDialog_2
 from dialog_3 import MyDialog_3
+from dialog_4 import MyDialog_4
 
 
 class Communicate(QObject):
     sendVarToDialog = pyqtSignal(object, object)
     sendVarToDialog_2 = pyqtSignal(object, object, object, object)
     sendVarToDialog_3 = pyqtSignal()
+    sendVarToDialog_4 = pyqtSignal()
+    sendVarToDialog_5 = pyqtSignal()
 
 
 class Navigation(QMainWindow):
@@ -29,6 +32,7 @@ class Navigation(QMainWindow):
         self.c = Communicate()
         self.action.triggered.connect(self.navigation_act)
         self.action_2.triggered.connect(self.replacements_act)
+        self.action_3.triggered.connect(self.admin_act)
 
         # Нажажие радиокнопок
         self.floors.buttonClicked.connect(self.radio_buttons_click)
@@ -50,6 +54,13 @@ class Navigation(QMainWindow):
         self.c.sendVarToDialog_3.connect(self.dialog_3.getVarToDialog_3)
         self.c.sendVarToDialog_3.emit()
         self.dialog_3.show()
+
+    def admin_act(self):
+        self.dialog_4 = MyDialog_4()
+
+        self.c.sendVarToDialog_4.connect(self.dialog_4.getVarToDialog_4)
+        self.c.sendVarToDialog_4.emit()
+        self.dialog_4.show()
 
     # Сохраняем номер этажа, выбранного пользователем
     def radio_buttons_click(self, button):

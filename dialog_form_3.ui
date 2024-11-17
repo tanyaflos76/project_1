@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>734</width>
+    <height>514</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Замены</string>
+  </property>
+  <widget class="QLabel" name="label_date">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>20</y>
+     <width>371</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Замена уроков на</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>671</width>
+     <height>421</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -12,7 +12,6 @@ class MyDialog_3(QtWidgets.QDialog):
         uic.loadUi('dialog_form_3.ui', self)
         self.con = sqlite3.connect('info_about_classes.sqlite')
         self.current_date = dt.datetime.now().date().strftime("%d.%m.%Y")
-        print(self.current_date)
 
     def getVarToDialog_3(self):
         cur = self.con.cursor()

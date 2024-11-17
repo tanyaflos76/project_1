@@ -18,5 +18,13 @@ with open('teachers_and_classes.txt', encoding='utf-8', mode='r') as f:
         query2 = f'''INSERT INTO classrooms(num_class, id_floor) VALUES('{class_num}','{floor}')'''
         res2 = cur.execute(query2)
         con.commit()
-
+for i in range(100, 430):
+    s = f'floors/{i}.png'
+    cur = con.cursor()
+    query1 = f'''select * from classrooms where num_class = "{i}"'''
+    res1 = cur.execute(query1)
+    if res1:
+        query2 = f'''insert into classrooms(file_name) values({s})'''
+        res2 = cur.execute(query2)
+    con.commit()
 con.close()

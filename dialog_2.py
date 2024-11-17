@@ -18,7 +18,8 @@ class MyDialog_2(QtWidgets.QDialog):
         self.label_4.setVisible(False)
         self.label_8.setVisible(False)
 
-    def getVarToDialog_2(self, number, number_floor, teacher, subject):
+    def getVarToDialog_2(self, number, number_floor, teacher, subject, filename):
+        # Работа с информацией
         self.numberClass.setText(number)
         self.floor.setText(number_floor)
         if len(teacher) > 1:
@@ -32,6 +33,13 @@ class MyDialog_2(QtWidgets.QDialog):
             self.subject_2.setText(subject[1])
         self.teacher.setText(teacher[0])
         self.subject.setText(subject[0])
+
+        # Добавление картинки с выделенным кабинетом
+        self.pixmap = QPixmap(filename)
+        self.image = self.label_6
+        self.image.move(335, 40)
+        self.image.resize(560, 474)
+        self.image.setPixmap(self.pixmap)
 
 
 if __name__ == '__main__':

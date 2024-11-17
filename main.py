@@ -7,11 +7,13 @@ from PyQt6.QtCore import pyqtSignal, QObject
 
 from dialog import MyDialog
 from dialog_2 import MyDialog_2
+from dialog_3 import MyDialog_3
 
 
 class Communicate(QObject):
     sendVarToDialog = pyqtSignal(object, object)
     sendVarToDialog_2 = pyqtSignal(object, object, object, object)
+    sendVarToDialog_3 = pyqtSignal()
 
 
 class Navigation(QMainWindow):
@@ -25,6 +27,8 @@ class Navigation(QMainWindow):
         self.showPicture.clicked.connect(self.show_plan)
         self.showClass.clicked.connect(self.show_the_class)
         self.c = Communicate()
+        self.action.triggered.connect(self.navigation_act)
+        self.action_2.triggered.connect(self.replacements_act)
 
         # Нажажие радиокнопок
         self.floors.buttonClicked.connect(self.radio_buttons_click)
@@ -32,9 +36,20 @@ class Navigation(QMainWindow):
         # Отображение исходной картинки
         self.pixmap = QPixmap('school.jpg')
         self.image = self.for_picture
-        self.image.move(200, 35)
+        self.image.move(200, 20)
         self.image.resize(700, 500)
         self.image.setPixmap(self.pixmap)
+
+    def navigation_act(self):
+        self.main_menu = Navigation()
+        self.main_menu.show()
+
+    def replacements_act(self):
+        self.dialog_3 = MyDialog_3()
+
+        self.c.sendVarToDialog_3.connect(self.dialog_3.getVarToDialog_3)
+        self.c.sendVarToDialog_3.emit()
+        self.dialog_3.show()
 
     # Сохраняем номер этажа, выбранного пользователем
     def radio_buttons_click(self, button):

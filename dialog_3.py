@@ -3,7 +3,7 @@ import sys
 from PyQt6 import uic, QtCore, QtWidgets
 import datetime as dt
 import sqlite3
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
+from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QHeaderView
 
 
 class MyDialog_3(QtWidgets.QDialog):
@@ -22,6 +22,7 @@ class MyDialog_3(QtWidgets.QDialog):
             self.tableWidget.setRowCount(len(res))
             self.tableWidget.setColumnCount(len(res[0]))
             self.tableWidget.setHorizontalHeaderLabels(titles)
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
 
             for i, row in enumerate(res):
                 for j, item in enumerate(row):

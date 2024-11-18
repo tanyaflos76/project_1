@@ -15,14 +15,14 @@ class MyDialog_3(QtWidgets.QDialog):
 
     def getVarToDialog_3(self):
         cur = self.con.cursor()
-        query = f'''select pupils_class, number_lesson, subject, who_replaces, where_class from replacements where date = "{self.current_date}"'''
+        query = f'''select pupils_class, number_lesson, subject, (select name from teachers where id_teacher = who_replaces), where_class from replacements where date = "{self.current_date}"'''
         titles = ['Класс', '№ урока', 'Предмет', 'Учитель', 'Кабинет']
         res = cur.execute(query).fetchall()
         if res:
             self.tableWidget.setRowCount(len(res))
             self.tableWidget.setColumnCount(len(res[0]))
             self.tableWidget.setHorizontalHeaderLabels(titles)
-            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+            self.tableWidget.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
 
             for i, row in enumerate(res):
                 for j, item in enumerate(row):

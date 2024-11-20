@@ -9,6 +9,7 @@ from dialog import MyDialog
 from dialog_2 import MyDialog_2
 from dialog_3 import MyDialog_3
 from dialog_4 import MyDialog_4
+from dialog_5 import MyDialog_5
 
 
 class Communicate(QObject):
@@ -17,12 +18,14 @@ class Communicate(QObject):
     sendVarToDialog_3 = pyqtSignal()
     sendVarToDialog_4 = pyqtSignal()
     sendVarToDialog_5 = pyqtSignal()
+    sendVar_2_ToDialog_5 = pyqtSignal(object)
 
 
 class Navigation(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('template.ui', self)
+
         self.classNumber.setVisible(False)
         self.label_2.setVisible(False)
         self.showClass.setVisible(False)
@@ -30,9 +33,9 @@ class Navigation(QMainWindow):
         self.showPicture.clicked.connect(self.show_plan)
         self.showClass.clicked.connect(self.show_the_class)
         self.c = Communicate()
-        self.action.triggered.connect(self.navigation_act)
         self.action_2.triggered.connect(self.replacements_act)
         self.action_3.triggered.connect(self.admin_act)
+        self.cor_password = '1240nhferwj3'
 
         # Нажажие радиокнопок
         self.floors.buttonClicked.connect(self.radio_buttons_click)
@@ -44,10 +47,6 @@ class Navigation(QMainWindow):
         self.image.resize(700, 500)
         self.image.setPixmap(self.pixmap)
 
-    def navigation_act(self):
-        self.main_menu = Navigation()
-        self.main_menu.show()
-
     def replacements_act(self):
         self.dialog_3 = MyDialog_3()
 
@@ -56,11 +55,11 @@ class Navigation(QMainWindow):
         self.dialog_3.show()
 
     def admin_act(self):
-        self.dialog_4 = MyDialog_4()
+        self.dialog_5 = MyDialog_5()
 
-        self.c.sendVarToDialog_4.connect(self.dialog_4.getVarToDialog_4)
-        self.c.sendVarToDialog_4.emit()
-        self.dialog_4.show()
+        self.c.sendVarToDialog_5.connect(self.dialog_5.getVarToDialog_5)
+        self.c.sendVarToDialog_5.emit()
+        self.dialog_5.exec()
 
     # Сохраняем номер этажа, выбранного пользователем
     def radio_buttons_click(self, button):

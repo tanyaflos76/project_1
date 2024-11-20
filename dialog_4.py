@@ -5,25 +5,15 @@ from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLineEdit
 from PyQt6.QtCore import pyqtSignal, QObject
 
-from dialog_5 import MyDialog_5
-
-
-class Communicate(QObject):
-    sendVarToDialog_5 = pyqtSignal()
-
 
 class MyDialog_4(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
         uic.loadUi('dialog_form_4.ui', self)
-        self.c = Communicate()
         self.addButton.clicked.connect(self.add)
 
     def getVarToDialog_4(self):
-        self.dialog_5 = MyDialog_5()
-        self.c.sendVarToDialog_5.connect(self.dialog_5.getVarToDialog_5)
-        self.c.sendVarToDialog_5.emit()
-        self.dialog_5.exec()
+        ...
 
     def add(self):
         con = sqlite3.connect('info_about_classes.sqlite')

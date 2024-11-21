@@ -4,8 +4,8 @@ from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtGui import QPixmap, QIcon
 from PyQt6.QtCore import pyqtSignal, QObject
-from PyQt6.uic.properties import QtGui
 
+from template import Ui_MWindow
 from dialog import MyDialog
 from dialog_2 import MyDialog_2
 from dialog_3 import MyDialog_3
@@ -21,10 +21,10 @@ class Communicate(QObject):
     sendVar_2_ToDialog_5 = pyqtSignal(object)
 
 
-class Navigation(QMainWindow):
+class Navigation(QMainWindow, Ui_MWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('template.ui', self)
+        self.setupUi(self)
         self.setWindowIcon(QIcon('favicon.ico'))
         self.classNumber.setVisible(False)
         self.label_2.setVisible(False)

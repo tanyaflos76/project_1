@@ -3,15 +3,15 @@ import sys
 from PyQt6 import uic, QtCore, QtWidgets
 import datetime as dt
 import sqlite3
-
+from dialog_form_3 import Ui_Dialog
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QHeaderView
 
 
-class MyDialog_3(QtWidgets.QDialog):
+class MyDialog_3(QtWidgets.QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi('dialog_form_3.ui', self)
+        self.setupUi(self)
         self.con = sqlite3.connect('info_about_classes.sqlite')
         self.current_date = dt.datetime.now().date().strftime("%d.%m.%Y")
         self.setWindowIcon(QIcon('favicon.ico'))

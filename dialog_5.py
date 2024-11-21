@@ -5,6 +5,7 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLineEdit
 from PyQt6.QtCore import pyqtSignal, QObject
 from dialog_4 import MyDialog_4
+from dialog_form_5 import Ui_Dialog
 
 
 class Communicate(QObject):
@@ -12,17 +13,16 @@ class Communicate(QObject):
     sendVarToDialog_4 = pyqtSignal()
 
 
-class MyDialog_5(QtWidgets.QDialog):
+class MyDialog_5(QtWidgets.QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi('dialog_form_5.ui', self)
+        self.setupUi(self)
         self.setWindowIcon(QIcon('favicon.ico'))
         self.password.setEchoMode(QLineEdit.EchoMode.Password)
         self.ok_button.clicked.connect(self.ok)
         self.cancel_button.clicked.connect(self.cancel)
         self.c = Communicate()
         self.cor_password = '123'
-
 
     def ok(self):
         passw = self.password.text()

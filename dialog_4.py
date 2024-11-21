@@ -4,13 +4,13 @@ import sqlite3
 from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLineEdit
-from PyQt6.QtCore import pyqtSignal, QObject
+from dialog_form_4 import Ui_Dialog
 
 
-class MyDialog_4(QtWidgets.QDialog):
+class MyDialog_4(QtWidgets.QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi('dialog_form_4.ui', self)
+        self.setupUi(self)
         self.addButton.clicked.connect(self.add)
         self.setWindowIcon(QIcon('favicon.ico'))
 

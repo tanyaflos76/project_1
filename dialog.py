@@ -3,12 +3,13 @@ import sys
 from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtGui import QPixmap, QIcon
+from dialog_form import Ui_Dialog
 
 
-class MyDialog(QtWidgets.QDialog):
+class MyDialog(QtWidgets.QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi('dialog_form.ui', self)
+        self.setupUi(self)
         self.setWindowIcon(QIcon('favicon.ico'))
 
     def getVarToDialog(self, filename, number_floor):

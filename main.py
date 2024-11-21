@@ -35,7 +35,6 @@ class Navigation(QMainWindow):
         self.c = Communicate()
         self.action_2.triggered.connect(self.replacements_act)
         self.action_3.triggered.connect(self.admin_act)
-        self.cor_password = '1240nhferwj3'
 
         # Нажажие радиокнопок
         self.floors.buttonClicked.connect(self.radio_buttons_click)

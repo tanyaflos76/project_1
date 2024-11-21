@@ -9,7 +9,6 @@ from dialog_4 import MyDialog_4
 class Communicate(QObject):
     sendVarFromDialog_5 = pyqtSignal()
     sendVarToDialog_4 = pyqtSignal()
-    # sendVar_2_FromDialog_5 = pyqtSignal(object)
 
 
 class MyDialog_5(QtWidgets.QDialog):
@@ -20,7 +19,7 @@ class MyDialog_5(QtWidgets.QDialog):
         self.ok_button.clicked.connect(self.ok)
         self.cancel_button.clicked.connect(self.cancel)
         self.c = Communicate()
-        self.cor_password = 'hello_world!'
+        self.cor_password = '123'
 
     def ok(self):
         passw = self.password.text()

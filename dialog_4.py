@@ -2,6 +2,7 @@ import sys
 import sqlite3
 
 from PyQt6 import uic, QtCore, QtWidgets
+from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLineEdit
 from PyQt6.QtCore import pyqtSignal, QObject
 
@@ -11,6 +12,7 @@ class MyDialog_4(QtWidgets.QDialog):
         super().__init__()
         uic.loadUi('dialog_form_4.ui', self)
         self.addButton.clicked.connect(self.add)
+        self.setWindowIcon(QIcon('favicon.ico'))
 
     def getVarToDialog_4(self):
         ...

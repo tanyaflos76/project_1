@@ -2,13 +2,14 @@ import sys
 
 from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QIcon
 
 
 class MyDialog(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
         uic.loadUi('dialog_form.ui', self)
+        self.setWindowIcon(QIcon('favicon.ico'))
 
     def getVarToDialog(self, filename, number_floor):
         # Отображаем в label номер этажа

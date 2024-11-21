@@ -2,13 +2,14 @@ import sys
 
 from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QIcon
 
 
 class MyDialog_2(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
         uic.loadUi('dialog_form_2.ui', self)
+        self.setWindowIcon(QIcon('favicon.ico'))
         self.numberClass.setEnabled(False)
         self.teacher.setEnabled(False)
         self.floor.setEnabled(False)

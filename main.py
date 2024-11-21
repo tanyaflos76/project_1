@@ -2,8 +2,9 @@ import sys
 import sqlite3
 from PyQt6 import uic, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication, QMainWindow
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QIcon
 from PyQt6.QtCore import pyqtSignal, QObject
+from PyQt6.uic.properties import QtGui
 
 from dialog import MyDialog
 from dialog_2 import MyDialog_2
@@ -24,7 +25,7 @@ class Navigation(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('template.ui', self)
-
+        self.setWindowIcon(QIcon('favicon.ico'))
         self.classNumber.setVisible(False)
         self.label_2.setVisible(False)
         self.showClass.setVisible(False)

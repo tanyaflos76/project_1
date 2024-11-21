@@ -8,7 +8,6 @@ from PyQt6.QtCore import pyqtSignal, QObject
 from dialog import MyDialog
 from dialog_2 import MyDialog_2
 from dialog_3 import MyDialog_3
-from dialog_4 import MyDialog_4
 from dialog_5 import MyDialog_5
 
 
